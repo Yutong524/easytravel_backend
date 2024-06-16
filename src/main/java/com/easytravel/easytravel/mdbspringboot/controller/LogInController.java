@@ -64,6 +64,8 @@ public class LogInController {
             throw new RuntimeException("Invalid data: " + errorMessages);
         }  else if (customerService.isUsernameTaken(body.username())){
             throw new RuntimeException("Username exists");
+        } else if (bannedWords.contains(body.username())){
+            throw new RuntimeException("Restricted words used");
         }
 
         return customerService.createCustomer(body.username(), body.password());

@@ -1,8 +1,14 @@
 package com.easytravel.easytravel.mdbspringboot.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
+import lombok.Data;
+import org.bson.types.ObjectId;
+import java.util.List;
 
+
+@Data
 public class Customer {
 
     @Id
@@ -15,12 +21,12 @@ public class Customer {
     private String password;
 
     @Field("favourite_poi")
-    private Integer[] favorite_poi;
+    private List<Integer> favorite_poi;
 
     @Field("favorite_route")
-    private Integer[] favorite_route;
+    private List<Integer> favorite_route;
 
-    public Customer(Integer id, String username, String password, Integer[] fpoi, Integer[] froute) {
+    public Customer(Integer id, String username, String password, List<Integer> fpoi, List<Integer> froute) {
         super();
         this.id = id;
         this.username = username;

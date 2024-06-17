@@ -2,8 +2,8 @@ package com.easytravel.easytravel.mdbspringboot.controller;
 
 import com.easytravel.easytravel.mdbspringboot.model.Customer;
 import com.easytravel.easytravel.mdbspringboot.model.RegisterBody;
+import com.easytravel.easytravel.mdbspringboot.service.impl.BannedNamesService;
 import com.easytravel.easytravel.mdbspringboot.service.impl.CustomerServiceImpl;
-import com.easytravel.easytravel.mdbspringboot.service.intf.CustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
@@ -25,24 +25,12 @@ import java.util.stream.Collectors;
 public class LogInController {
     private static final Logger logger = Logger.getLogger(LogInController.class.getName());
     private final CustomerServiceImpl customerService;
+    private final BannedNamesService bannedNamesService;
 
-    private static final String BANNED_WORDS_FILE = "src/main/resources/BANNED_WORDS.json";
-    private Set<String> bannedWords;
 
-    @PostConstruct
-    public void init() {
-        try {
-            byte[] jsonData = Files.readAllBytes(Paths.get(BANNED_WORDS_FILE));
-            ObjectMapper objectMapper = new ObjectMapper();
-            String[] bannedWordsArray = objectMapper.readValue(jsonData, String[].class);
-            bannedWords = new HashSet<>(Arrays.asList(bannedWordsArray));
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load banned words", e);
-        }
-    }
-
-    public LogInController(CustomerServiceImpl customerService) {
+    public LogInController(CustomerServiceImpl customerService, BannedNamesService bannedNamesService) {
         this.customerService = customerService;
+        this.bannedNamesService = bannedNamesService;
     }
     @GetMapping("/customers")
 
@@ -64,35 +52,11 @@ public class LogInController {
             throw new RuntimeException("Invalid data: " + errorMessages);
         }  else if (customerService.isUsernameTaken(body.username())){
             throw new RuntimeException("Username exists");
-        } else if (bannedWords.contains(body.username())){
+        } else if (bannedNamesService.existInBannedNames(body.username())){
             throw new RuntimeException("Restricted words used");
         }
 
         return customerService.createCustomer(body.username(), body.password());
     }
-
-//    private void validateUsername(String username) {
-//        if (username.length() < 4) {
-//            throw new RuntimeException("Username must be at least four characters long.");
-//        }
-//        if (bannedWords.contains(username.toLowerCase())) {
-//            throw new RuntimeException("Username contains banned words.");
-//        }
-////        if (customerService.isUsernameTaken(username)) {
-////            throw new RuntimeException("Username is already taken.");
-////        }
-//    }
-//
-//    private void validatePassword(String password) {
-//        if (password.length() < 8) {
-//            throw new RuntimeException("Password must be at least eight characters long.");
-//        }
-//        if (!password.matches(".*[A-Z].*")) {
-//            throw new RuntimeException("Password must contain at least one capital letter.");
-//        }
-//        if (!password.matches(".*[a-zA-Z].*") || !password.matches(".*[0-9].*")) {
-//            throw new RuntimeException("Password must be a combination of letters and numbers.");
-//        }
-//    }
 }
 

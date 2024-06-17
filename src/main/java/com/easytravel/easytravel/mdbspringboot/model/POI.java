@@ -11,7 +11,7 @@ import java.util.List;
 @Document(collection = "pois")
 public class POI {
     @Id
-    private Integer id;
+    private String id;
 
     @Field("name")
     private String name;

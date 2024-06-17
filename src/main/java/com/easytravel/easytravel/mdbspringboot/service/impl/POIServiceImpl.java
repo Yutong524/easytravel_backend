@@ -24,6 +24,6 @@ public class POIServiceImpl implements POIService {
     }
 
     @Override
-    public void removeFavoritePOI(Integer id) {
+    public void removeFavoritePOI(String id) {
     }
 }

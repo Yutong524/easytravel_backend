@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface POIRepository extends MongoRepository<POI, Integer> {
+public interface POIRepository extends MongoRepository<POI, String> {
     List<POI> findByNameContaining(String keyword);
     List<POI> findByAddress(String address);
 }

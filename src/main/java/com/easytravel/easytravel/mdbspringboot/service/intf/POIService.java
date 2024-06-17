@@ -7,5 +7,5 @@ import java.util.List;
 public interface POIService {
     List<POI> getPOIsByKeyword(String keyword);
     List<POI> getPOIsByAddress(String address);
-    void removeFavoritePOI(Integer id);
+    void removeFavoritePOI(String id);
 }

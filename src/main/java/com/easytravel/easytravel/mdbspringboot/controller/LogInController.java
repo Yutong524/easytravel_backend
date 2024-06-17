@@ -23,51 +23,51 @@ import java.util.stream.Collectors;
 
 @RestController
 public class LogInController {
-    private static final Logger logger = Logger.getLogger(LogInController.class.getName());
-    private final CustomerServiceImpl customerService;
-
-    private static final String BANNED_WORDS_FILE = "src/main/resources/BANNED_WORDS.json";
-    private Set<String> bannedWords;
-
-    @PostConstruct
-    public void init() {
-        try {
-            byte[] jsonData = Files.readAllBytes(Paths.get(BANNED_WORDS_FILE));
-            ObjectMapper objectMapper = new ObjectMapper();
-            String[] bannedWordsArray = objectMapper.readValue(jsonData, String[].class);
-            bannedWords = new HashSet<>(Arrays.asList(bannedWordsArray));
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load banned words", e);
-        }
-    }
-
-    public LogInController(CustomerServiceImpl customerService) {
-        this.customerService = customerService;
-    }
-    @GetMapping("/customers")
-
-    public List<Customer> getAllCustomers() {
-
-        logger.info("getAllCustomers method called");
-        return customerService.getAllCustomers();
-    }
-
-
-    @PostMapping("/customers")
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public Customer createCustomer(@Valid @RequestBody RegisterBody body, BindingResult bindingResult) {
-        logger.info(" createCustomer method called");
-        if (bindingResult.hasErrors()) {
-            String errorMessages = bindingResult.getAllErrors().stream()
-                    .map(error -> error.getDefaultMessage())
-                    .collect(Collectors.joining(", "));
-            throw new RuntimeException("Invalid data: " + errorMessages);
-        }  else if (customerService.isUsernameTaken(body.username())){
-            throw new RuntimeException("Username exists");
-        }
-
-        return customerService.createCustomer(body.username(), body.password());
-    }
+//    private static final Logger logger = Logger.getLogger(LogInController.class.getName());
+//    private final CustomerServiceImpl customerService;
+//
+//    private static final String BANNED_WORDS_FILE = "src/main/resources/BANNED_WORDS.json";
+//    private Set<String> bannedWords;
+//
+//    @PostConstruct
+//    public void init() {
+//        try {
+//            byte[] jsonData = Files.readAllBytes(Paths.get(BANNED_WORDS_FILE));
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            String[] bannedWordsArray = objectMapper.readValue(jsonData, String[].class);
+//            bannedWords = new HashSet<>(Arrays.asList(bannedWordsArray));
+//        } catch (IOException e) {
+//            throw new RuntimeException("Failed to load banned words", e);
+//        }
+//    }
+//
+//    public LogInController(CustomerServiceImpl customerService) {
+//        this.customerService = customerService;
+//    }
+//    @GetMapping("/customers")
+//
+//    public List<Customer> getAllCustomers() {
+//
+//        logger.info("getAllCustomers method called");
+//        return customerService.getAllCustomers();
+//    }
+//
+//
+//    @PostMapping("/customers")
+//    @ResponseStatus(value = HttpStatus.CREATED)
+//    public Customer createCustomer(@Valid @RequestBody RegisterBody body, BindingResult bindingResult) {
+//        logger.info(" createCustomer method called");
+//        if (bindingResult.hasErrors()) {
+//            String errorMessages = bindingResult.getAllErrors().stream()
+//                    .map(error -> error.getDefaultMessage())
+//                    .collect(Collectors.joining(", "));
+//            throw new RuntimeException("Invalid data: " + errorMessages);
+//        }  else if (customerService.isUsernameTaken(body.username())){
+//            throw new RuntimeException("Username exists");
+//        }
+//
+//        return customerService.createCustomer(body.username(), body.password());
+//    }
 
 //    private void validateUsername(String username) {
 //        if (username.length() < 4) {

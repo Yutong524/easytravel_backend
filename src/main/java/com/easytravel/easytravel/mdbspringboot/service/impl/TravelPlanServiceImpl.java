@@ -20,6 +20,18 @@ public class TravelPlanServiceImpl implements TravelPlanService {
 
     @Override
     public String deleteTravelPlan(int id) {
-        return planRepository.deleteTravelPlanByPlanId(id);
+        planRepository.deleteTravelPlanByPlanId(id);
+        return "Deleted travel plan";
+    }
+
+    @Override
+    public Integer getCountTravelPlan() {
+        return (int) planRepository.count();
+    }
+
+    @Override
+    public String insertTravelPlan(TravelPlan travelPlan) {
+        planRepository.save(travelPlan);
+        return "New plan created successfully";
     }
 }

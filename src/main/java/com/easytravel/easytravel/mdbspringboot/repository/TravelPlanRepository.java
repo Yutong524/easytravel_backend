@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface TravelPlanRepository extends MongoRepository<TravelPlan, String> {
     List<TravelPlan> findTravelPlanByAuthor(Integer authorId);
-    String deleteTravelPlanByPlanId(Integer planId);
+    void deleteTravelPlanByPlanId(Integer planId);
+    long count();
 }

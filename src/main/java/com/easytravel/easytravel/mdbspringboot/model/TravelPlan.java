@@ -23,11 +23,16 @@ public class TravelPlan {
     @Field("author")
     private Integer author;
 
-    public TravelPlan(String id, String name, String description, Integer author) {
+    @Field("tags")
+    private String[] tags;
+
+    public TravelPlan(String id, Integer planId, String name, String description, Integer author, String[] tags) {
         super();
         this.id = id;
+        this.planId = planId;
         this.name = name;
         this.description = description;
         this.author = author;
+        this.tags = tags;
     }
 }

@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface TravelRouteRepository extends MongoRepository<TravelRoute, String>, TravelRouteRepositoryCustom {
-    String deleteTravelRouteByRouteId(Integer routeId);
+    void deleteTravelRouteByRouteId(Integer routeId);
     List<TravelRoute> findTravelRouteByPlanId(Integer planId);
 }

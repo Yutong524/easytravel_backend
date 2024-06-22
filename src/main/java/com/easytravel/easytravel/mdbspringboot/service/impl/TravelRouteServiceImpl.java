@@ -25,7 +25,8 @@ public class TravelRouteServiceImpl implements TravelRouteService {
 
     @Override
     public String deleteRoute(Integer routeId) {
-        return routeRepository.deleteTravelRouteByRouteId(routeId);
+        routeRepository.deleteTravelRouteByRouteId(routeId);
+        return "Route Deleted Successfully";
     }
 
     @Override

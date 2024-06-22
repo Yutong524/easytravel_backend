@@ -7,4 +7,6 @@ import java.util.List;
 public interface TravelPlanService {
     List<TravelPlan> getTravelPlanByAuthor(int author);
     String deleteTravelPlan(int id);
+    Integer getCountTravelPlan();
+    String insertTravelPlan(TravelPlan travelPlan);
 }

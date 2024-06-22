@@ -14,7 +14,7 @@ public class RouteInitiationController {
 
     @PostMapping
     public String addRoute(@RequestBody TravelRoute route) {
-         
+
         return "Route added successfully";
     }
 }

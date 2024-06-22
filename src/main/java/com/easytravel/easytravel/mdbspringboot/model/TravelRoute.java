@@ -40,10 +40,11 @@ public class TravelRoute {
     @Field("visibility")
     private Boolean visibility;
 
-    public TravelRoute(String id, String name, String startDate, String endDate, List<POIArrangement> poiArrangement,
+    public TravelRoute(String id, Integer routeId, String name, String startDate, String endDate, List<POIArrangement> poiArrangement,
                        String priority, Integer planId, Integer creatorId, Boolean visibility) {
         super();
         this.id = id;
+        this.routeId = routeId;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;

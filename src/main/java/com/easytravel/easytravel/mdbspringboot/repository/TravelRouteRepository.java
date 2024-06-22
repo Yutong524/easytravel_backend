@@ -8,4 +8,5 @@ import java.util.List;
 public interface TravelRouteRepository extends MongoRepository<TravelRoute, String>, TravelRouteRepositoryCustom {
     void deleteTravelRouteByRouteId(Integer routeId);
     List<TravelRoute> findTravelRouteByPlanId(Integer planId);
+    long count();
 }

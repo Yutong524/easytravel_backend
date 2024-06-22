@@ -34,4 +34,15 @@ public class TravelRouteServiceImpl implements TravelRouteService {
         return routeRepository.findTravelRouteByPlanId(planId);
     }
 
+    @Override
+    public String insertTravelRoute(TravelRoute route) {
+        routeRepository.save(route);
+        return "Route Inserted Successfully";
+    }
+
+    @Override
+    public Integer getCountTravelRoute() {
+        return (int) routeRepository.count();
+    }
+
 }

@@ -8,4 +8,5 @@ public interface POIService {
     List<POI> getPOIsByKeyword(String keyword);
     List<POI> getPOIsByAddress(String address);
     void removeFavoritePOI(String id);
+    void getPOIByID(String id);
 }

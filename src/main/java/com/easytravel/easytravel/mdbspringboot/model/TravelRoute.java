@@ -1,29 +1,57 @@
 package com.easytravel.easytravel.mdbspringboot.model;
 
-import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import lombok.Data;
 
 import java.util.List;
 
 @Data
-@Document(collection = "travelRoutes")
+@Document(collection = "travelroutes")
 public class TravelRoute {
     @Id
-    private Integer id;
+    private String id;
+
+    @Field("routeId")
+    private Integer routeId;
+
+    @Field("name")
     private String name;
+
+    @Field("startDate")
     private String startDate;
+
+    @Field("endDate")
     private String endDate;
-    private List<POIArrangement> poiArrangements;
-    private Integer creatorId;
+
+    @Field("poiArrangement")
+    private List<POIArrangement> poiArrangement;
+
+    @Field("priority")
+    private String priority;
+
+    @Field("planId")
     private Integer planId;
+
+    @Field("creatorId")
+    private Integer creatorId;
+
+    @Field("visibility")
     private Boolean visibility;
 
-    @Data
-    public static class POIArrangement {
-        private Integer poiId;
-        private String startTime;
-        private String endTime;
-        private String priority;
+    public TravelRoute(String id, Integer routeId, String name, String startDate, String endDate, List<POIArrangement> poiArrangement,
+                       String priority, Integer planId, Integer creatorId, Boolean visibility) {
+        super();
+        this.id = id;
+        this.routeId = routeId;
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.poiArrangement = poiArrangement;
+        this.priority = priority;
+        this.planId = planId;
+        this.creatorId = creatorId;
+        this.visibility = visibility;
     }
 }

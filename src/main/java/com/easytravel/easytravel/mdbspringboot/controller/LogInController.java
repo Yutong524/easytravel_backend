@@ -22,6 +22,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api/customers")
+@CrossOrigin(origins="http://localhost:3000")
 public class LogInController {
     private static final Logger logger = Logger.getLogger(LogInController.class.getName());
     private final CustomerServiceImpl customerService;
@@ -32,7 +34,7 @@ public class LogInController {
         this.customerService = customerService;
         this.bannedNamesService = bannedNamesService;
     }
-    @GetMapping("/customers")
+    @GetMapping("/")
 
     public List<Customer> getAllCustomers() {
 
@@ -41,7 +43,7 @@ public class LogInController {
     }
 
 
-    @PostMapping("/customers")
+    @PostMapping("/")
     @ResponseStatus(value = HttpStatus.CREATED)
     public Customer createCustomer(@Valid @RequestBody RegisterBody body, BindingResult bindingResult) {
         logger.info(" createCustomer method called");

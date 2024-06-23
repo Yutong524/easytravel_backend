@@ -32,11 +32,13 @@ public class RouteInitiationController {
         //      startDate: provided
         //      endDate: provided
         //      poiArrangement: not provided if not agreed, provided if agreed
+        //      poiList: provided
         //      priority: provided
         //      planId: provided
         //      creatorId: provided
 
         Boolean agreed = (Boolean) requestData.get("agreed");
+        List<Integer> poiList = (List<Integer>) requestData.get("poiList");
         if (!agreed) {
             List<POIArrangement> currentArrangement = (List<POIArrangement>) requestData.get("poiArrangement");
             String startTime = requestData.get("startTime").toString();
@@ -46,7 +48,7 @@ public class RouteInitiationController {
                 this.poiArrangement = currentArrangement;
                 return checkApplicable(currentArrangement, dateList);
             } else {
-                POIArrangement arrangement = arrange(requestData);
+                POIArrangement arrangement = arrange(poiList, dateList);
                 return "arrangement";
             }
         } else {
@@ -68,6 +70,9 @@ public class RouteInitiationController {
 
     public String checkApplicable(List<POIArrangement> currentArrangement, List<String> dateList) {
         for (int i = 0; i < currentArrangement.size(); i++) {
+            if (isOutsideOfScope(currentArrangement.get(i))) {
+                return "Not applicable";
+            }
             for (int j = i + 1; j < currentArrangement.size(); j++) {
                 if (isOverlap(currentArrangement.get(i), currentArrangement.get(j))) {
                     return "Not applicable";
@@ -111,8 +116,16 @@ public class RouteInitiationController {
         return !(aEnd.isBefore(bStart) || bEnd.isBefore(aStart));
     }
 
+    private static boolean isOutsideOfScope(POIArrangement a) {
+        Integer id = a.getPoiId();
+        return false;
+    }
 
-    public POIArrangement arrange(Map<String, Object> requestData) {
-        return (POIArrangement) requestData.get("poiArrangement");
+
+    public POIArrangement arrange(List<Integer> poiList, List<String> dateList) {
+        for (int i = 0; i < poiList.size(); i++) {
+            break;
+        }
+        return new POIArrangement(null,null,null);
     }
 }

@@ -4,7 +4,10 @@ import com.easytravel.easytravel.mdbspringboot.model.TravelPlan;
 import com.easytravel.easytravel.mdbspringboot.repository.TravelPlanRepository;
 import com.easytravel.easytravel.mdbspringboot.service.intf.TravelPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -30,8 +33,14 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     }
 
     @Override
-    public String insertTravelPlan(TravelPlan travelPlan) {
+    public ResponseEntity<String> insertTravelPlan(TravelPlan travelPlan) {
+        List<TravelPlan> plans = planRepository.findTravelPlanByAuthor(travelPlan.getAuthor());
+        for (TravelPlan plan : plans) {
+            if (plan.getName().equals(travelPlan.getName())) {
+                throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "405");
+            }
+        }
         planRepository.save(travelPlan);
-        return "New plan created successfully";
+        return new ResponseEntity<>("Plan created successfully", HttpStatus.CREATED);
     }
 }

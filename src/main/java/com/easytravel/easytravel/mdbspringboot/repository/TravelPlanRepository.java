@@ -9,4 +9,5 @@ public interface TravelPlanRepository extends MongoRepository<TravelPlan, String
     List<TravelPlan> findTravelPlanByAuthor(Integer authorId);
     void deleteTravelPlanByPlanId(Integer planId);
     long count();
+    List<TravelPlan> findAllByAuthor(Integer authorId);
 }

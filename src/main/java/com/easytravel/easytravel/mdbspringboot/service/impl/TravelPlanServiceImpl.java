@@ -33,7 +33,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     }
 
     @Override
-    public ResponseEntity<String> insertTravelPlan(TravelPlan travelPlan) {
+    public ResponseEntity<TravelPlan> insertTravelPlan(TravelPlan travelPlan) {
         List<TravelPlan> plans = planRepository.findTravelPlanByAuthor(travelPlan.getAuthor());
         for (TravelPlan plan : plans) {
             if (plan.getName().equals(travelPlan.getName())) {
@@ -41,6 +41,6 @@ public class TravelPlanServiceImpl implements TravelPlanService {
             }
         }
         planRepository.save(travelPlan);
-        return new ResponseEntity<>("Plan created successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>(travelPlan, HttpStatus.CREATED);
     }
 }

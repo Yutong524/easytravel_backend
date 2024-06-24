@@ -16,7 +16,7 @@ public class PlanInitiationController {
     private TravelPlanService planService;
 
     @PostMapping("/")
-    public ResponseEntity<String> initiatePlan(@RequestBody String configs) {
+    public ResponseEntity<TravelPlan> initiatePlan(@RequestBody String configs) {
         // configs format: name;description;author
         // configs example: "San Fransisco;A plan;1"
 

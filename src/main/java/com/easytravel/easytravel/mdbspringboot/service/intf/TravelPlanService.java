@@ -9,5 +9,5 @@ public interface TravelPlanService {
     List<TravelPlan> getTravelPlanByAuthor(int author);
     String deleteTravelPlan(int id);
     Integer getCountTravelPlan();
-    ResponseEntity<String> insertTravelPlan(TravelPlan travelPlan);
+    ResponseEntity<TravelPlan> insertTravelPlan(TravelPlan travelPlan);
 }

@@ -33,6 +33,16 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Object verifyCustomer(String username, String password) {
+        Customer customer = customerRepository.getCustomerByUsername(username);
+        if (customer != null && customer.getPassword().equals(password)) {
+            return customer.getId();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public void getFavoritePOIById(Customer customer) {
     }
 

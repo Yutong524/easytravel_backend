@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -34,12 +31,16 @@ public class LogInController {
         this.customerService = customerService;
         this.bannedNamesService = bannedNamesService;
     }
-    @GetMapping("/")
-
-    public List<Customer> getAllCustomers() {
-
-        logger.info("getAllCustomers method called");
-        return customerService.getAllCustomers();
+    @PostMapping("/login")
+    public Object login(@RequestBody Map<String, String> data) {
+        String inputUsername = data.get("username");
+        String inputPassword = data.get("password");
+        Object response = customerService.verifyCustomer(inputUsername, inputPassword);
+        if (response == null) {
+            throw new RuntimeException("Invalid Credentials");
+        } else {
+            return response;
+        }
     }
 
 

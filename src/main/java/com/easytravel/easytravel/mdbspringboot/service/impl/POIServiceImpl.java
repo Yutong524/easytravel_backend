@@ -28,7 +28,7 @@ public class POIServiceImpl implements POIService {
     }
 
     @Override
-    public void getPOIByID(String id) {
-
+    public POI getPOIByID(Integer id) {
+        return poiRepository.getPOIByPoiId(id);
     }
 }

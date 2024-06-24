@@ -43,9 +43,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void getFavoritePOIById(Customer customer) {
-    }
-
     public List<Integer> getCustomerFavoritePOIList(Integer id){
      List<Customer> customer =  customerRepository.findCustomerById(id);
      return customer.get(0).getFavorite_poi();

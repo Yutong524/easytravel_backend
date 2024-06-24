@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public interface CustomerService {
-    void getFavoritePOIById(Customer customer);
     Customer createCustomer(String username, String password);
     Object verifyCustomer(String username, String password);
+    public List<Integer> getCustomerFavoritePOIList(Integer id);
 }

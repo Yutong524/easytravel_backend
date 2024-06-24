@@ -2,6 +2,7 @@ package com.easytravel.easytravel.mdbspringboot.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import lombok.Data;
 import org.bson.types.ObjectId;
@@ -9,6 +10,7 @@ import java.util.List;
 
 
 @Data
+@Document(collection = "customer")
 public class Customer {
 
     @Id

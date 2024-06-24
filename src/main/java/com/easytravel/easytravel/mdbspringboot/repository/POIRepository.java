@@ -8,4 +8,5 @@ import java.util.List;
 public interface POIRepository extends MongoRepository<POI, String> {
     List<POI> findByNameContaining(String keyword);
     List<POI> findByAddress(String address);
+    POI getPOIByPoiId(Integer poiId);
 }

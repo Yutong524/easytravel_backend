@@ -13,6 +13,9 @@ public class POI {
     @Id
     private String id;
 
+    @Field("id")
+    private Integer poiId;
+
     @Field("name")
     private String name;
 

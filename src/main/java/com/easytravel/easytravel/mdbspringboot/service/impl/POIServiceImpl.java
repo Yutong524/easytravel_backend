@@ -5,6 +5,7 @@ import com.easytravel.easytravel.mdbspringboot.repository.POIRepository;
 import com.easytravel.easytravel.mdbspringboot.service.intf.POIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.easytravel.easytravel.mdbspringboot.model.POI.Comment;
 
 import java.util.List;
 
@@ -30,5 +31,29 @@ public class POIServiceImpl implements POIService {
     @Override
     public POI getPOIByID(Integer id) {
         return poiRepository.getPOIByPoiId(id);
+    }
+
+    // added by Danny
+    @Override
+    public List<Comment> getPOICommentsByPoiId(Integer poiId) {
+        return poiRepository.getPOICommentsByPoiId(poiId);
+    }
+    //added by Danny
+    @Override
+    public void insertPOICommentByPoiId(Integer poiId, Comment comment) {
+        poiRepository.insertPOICommentByPoiId(poiId, comment);
+    }
+    //added by Danny
+    @Override
+    public Double getPOIAverageRating(Integer poiId) {
+        List<Comment> comments = poiRepository.getPOICommentsByPoiId(poiId);
+        if (comments.isEmpty()) {
+            return 0.0;
+        }
+        Double sum = 0.0;
+        for (Comment comment : comments) {
+            sum += comment.getRating();
+        }
+        return sum / comments.size();
     }
 }

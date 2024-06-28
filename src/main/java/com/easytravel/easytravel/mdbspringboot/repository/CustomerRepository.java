@@ -12,4 +12,5 @@ public interface CustomerRepository extends MongoRepository<Customer, Integer> {
     List<Customer> findByUsername(String username);
     Customer getCustomerByUsername(String username);
     List<Integer> getFavoritePoiById(Integer customerId);
+    Customer getCustomerById(Integer customerId);
 }

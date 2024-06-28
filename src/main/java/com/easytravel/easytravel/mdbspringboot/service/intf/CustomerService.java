@@ -13,4 +13,6 @@ public interface CustomerService {
     Customer createCustomer(String username, String password);
     Object verifyCustomer(String username, String password);
     public List<Integer> getCustomerFavoritePOIList(Integer id);
+    public List<Integer> getFavoriteRoute(Integer customerId);
+    public void modifyFavoriteRoute(Integer customerId, List<Integer> routes);
 }

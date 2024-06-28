@@ -14,4 +14,5 @@ public interface TravelRouteService {
     Integer getCountTravelRoute();
     List<TravelRoute> findAllTravelRoute(Integer customerId);
     List<TravelRoute> getAllRoutes();
+    TravelRoute getTravelRouteById(Integer routeId);
 }

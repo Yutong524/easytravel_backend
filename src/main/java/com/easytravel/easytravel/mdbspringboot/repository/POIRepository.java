@@ -11,7 +11,7 @@ public interface POIRepository extends MongoRepository<POI, String> {
     POI getPOIByPoiId(Integer poiId);
 
     // added by Danny
-    List<Comment> getPOICommentsByPoiId(Integer poiId);
+    //List<Comment> getPOICommentsByPoiId(Integer poiId);
     // added by Danny
-    void insertPOICommentByPoiId(Integer poiId, Comment comment);
+    //void insertPOICommentByPoiId(Integer poiId, Comment comment);
 }

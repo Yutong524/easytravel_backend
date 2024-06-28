@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -46,6 +47,23 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Integer> getCustomerFavoritePOIList(Integer id){
      List<Customer> customer =  customerRepository.findCustomerById(id);
      return customer.get(0).getFavorite_poi();
+    }
+
+    @Override
+    public List<Integer> getFavoriteRoute(Integer customerId) {
+        return customerRepository.getCustomerById(customerId).getFavorite_route();
+    }
+
+    @Override
+    public void modifyFavoriteRoute(Integer customerId, List<Integer> routes) {
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
+        if (optionalCustomer.isPresent()) {
+            Customer customer = optionalCustomer.get();
+            customer.setFavorite_route(routes);
+            customerRepository.save(customer);
+        } else {
+            throw new RuntimeException("Customer not found with id: " + customerId);
+        }
     }
 
 

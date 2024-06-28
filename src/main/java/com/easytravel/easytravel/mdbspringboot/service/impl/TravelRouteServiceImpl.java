@@ -52,7 +52,12 @@ public class TravelRouteServiceImpl implements TravelRouteService {
 
     @Override
     public List<TravelRoute> getAllRoutes() {
-        return routeRepository.getAllTravelRoute();
+        return routeRepository.findAll();
+    }
+
+    @Override
+    public TravelRoute getTravelRouteById(Integer routeId) {
+        return routeRepository.getTravelRouteByRouteId(routeId);
     }
 
 

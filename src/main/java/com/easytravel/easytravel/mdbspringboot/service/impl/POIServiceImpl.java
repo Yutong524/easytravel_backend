@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.easytravel.easytravel.mdbspringboot.model.POI.Comment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,24 +37,31 @@ public class POIServiceImpl implements POIService {
     // added by Danny
     @Override
     public List<Comment> getPOICommentsByPoiId(Integer poiId) {
-        return poiRepository.getPOICommentsByPoiId(poiId);
+        //return poiRepository.getPOICommentsByPoiId(poiId);
+        return new ArrayList<Comment>();
     }
     //added by Danny
     @Override
     public void insertPOICommentByPoiId(Integer poiId, Comment comment) {
-        poiRepository.insertPOICommentByPoiId(poiId, comment);
+        //poiRepository.insertPOICommentByPoiId(poiId, comment);
     }
     //added by Danny
     @Override
     public Double getPOIAverageRating(Integer poiId) {
-        List<Comment> comments = poiRepository.getPOICommentsByPoiId(poiId);
-        if (comments.isEmpty()) {
-            return 0.0;
-        }
-        Double sum = 0.0;
-        for (Comment comment : comments) {
-            sum += comment.getRating();
-        }
-        return sum / comments.size();
+        //List<Comment> comments = poiRepository.getPOICommentsByPoiId(poiId);
+        //if (comments.isEmpty()) {
+        //    return 0.0;
+        //}
+       // Double sum = 0.0;
+        //for (Comment comment : comments) {
+        //    sum += comment.getRating();
+        //}
+        //return sum / comments.size();
+        return 0.0;
+    }
+
+    @Override
+    public List<POI> getPOIs() {
+        return poiRepository.findAll();
     }
 }

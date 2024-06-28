@@ -16,4 +16,6 @@ public interface POIService {
     void insertPOICommentByPoiId(Integer poiId, Comment comment);
     // added by Danny
     Double getPOIAverageRating(Integer poiId);
+
+    List<POI> getPOIs();
 }

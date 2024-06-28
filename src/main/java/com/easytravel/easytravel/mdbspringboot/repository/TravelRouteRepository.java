@@ -10,5 +10,5 @@ public interface TravelRouteRepository extends MongoRepository<TravelRoute, Stri
     List<TravelRoute> findTravelRouteByPlanId(Integer planId);
     long count();
     List<TravelRoute> findTravelRouteByCreatorId(Integer creatorId);
-    List<TravelRoute> getAllTravelRoute();
+    TravelRoute getTravelRouteByRouteId(Integer routeId);
 }

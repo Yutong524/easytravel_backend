@@ -1,8 +1,10 @@
 package com.easytravel.easytravel.mdbspringboot.controller;
 
+import com.easytravel.easytravel.mdbspringboot.model.Customer;
 import com.easytravel.easytravel.mdbspringboot.model.POIArrangement;
 import com.easytravel.easytravel.mdbspringboot.model.TravelPlan;
 import com.easytravel.easytravel.mdbspringboot.model.TravelRoute;
+import com.easytravel.easytravel.mdbspringboot.service.intf.CustomerService;
 import com.easytravel.easytravel.mdbspringboot.service.intf.TravelRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +27,15 @@ public class RouteSearchController {
     @Autowired
     private TravelRouteService routeService;
 
+    @Autowired
+    private CustomerService custService;
+
     @PostMapping("/search")
     public List<TravelRoute> searchRoute(@RequestBody String configs) {
         // configs format: duration;poiId1,poiId2,...
-
+        if (configs.startsWith("\"") && configs.endsWith("\"")) {
+            configs = configs.substring(1, configs.length() - 1);
+        }
         // decipher and translate the configs string
         String[] parts = configs.split(";");
 
@@ -64,6 +71,28 @@ public class RouteSearchController {
         LocalDate start = LocalDate.parse(startDate, formatter);
         LocalDate end = LocalDate.parse(endDate, formatter);
         return ChronoUnit.DAYS.between(start, end);
+    }
+
+    @PatchMapping("/favorite/{customerId}/{routeId}")
+    public void toggleFavorite(@PathVariable Integer customerId, @PathVariable Integer routeId) {
+        List<Integer> favorites = custService.getFavoriteRoute(customerId);
+        if (favorites.contains(routeId)) {
+            favorites.remove(routeId);
+        } else {
+            favorites.add(routeId);
+        }
+
+        custService.modifyFavoriteRoute(customerId, favorites);
+    }
+
+    @GetMapping("/favorite/{customerId}")
+    public List<Integer> getFavoriteRoute(@PathVariable Integer customerId) {
+        return custService.getFavoriteRoute(customerId);
+    }
+
+    @GetMapping("/routes/id/{routeId}")
+    public TravelRoute getRouteById(@PathVariable("routeId") int routeId) {
+        return routeService.getTravelRouteById(routeId);
     }
 
 }

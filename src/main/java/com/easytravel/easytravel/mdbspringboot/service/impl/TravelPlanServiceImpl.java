@@ -43,4 +43,9 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         planRepository.save(travelPlan);
         return new ResponseEntity<>(travelPlan, HttpStatus.CREATED);
     }
+
+    @Override
+    public TravelPlan getNameofTravelPlan(int id) {
+        return planRepository.getTravelPlanByPlanId(id);
+    }
 }

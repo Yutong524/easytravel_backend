@@ -45,4 +45,10 @@ public class TravelRouteServiceImpl implements TravelRouteService {
         return (int) routeRepository.count();
     }
 
+    @Override
+    public List<TravelRoute> findAllTravelRoute(Integer customerId) {
+        return routeRepository.findTravelRouteByCreatorId(customerId);
+    }
+
+
 }

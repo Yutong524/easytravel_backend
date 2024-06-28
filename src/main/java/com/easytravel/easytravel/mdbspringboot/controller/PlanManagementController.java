@@ -24,4 +24,9 @@ public class PlanManagementController {
     public String deletePlan(@PathVariable("id") int id) {
         return planService.deleteTravelPlan(id);
     }
+
+    @GetMapping("/plans/{planId}")
+    public TravelPlan getNameofPlan(@PathVariable("planId") int planId) {
+        return planService.getNameofTravelPlan(planId);
+    }
 }

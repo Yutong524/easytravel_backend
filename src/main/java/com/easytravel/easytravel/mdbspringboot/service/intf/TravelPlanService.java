@@ -10,4 +10,5 @@ public interface TravelPlanService {
     String deleteTravelPlan(int id);
     Integer getCountTravelPlan();
     ResponseEntity<TravelPlan> insertTravelPlan(TravelPlan travelPlan);
+    TravelPlan getNameofTravelPlan(int id);
 }

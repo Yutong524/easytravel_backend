@@ -50,5 +50,10 @@ public class TravelRouteServiceImpl implements TravelRouteService {
         return routeRepository.findTravelRouteByCreatorId(customerId);
     }
 
+    @Override
+    public List<TravelRoute> getAllRoutes() {
+        return routeRepository.getAllTravelRoute();
+    }
+
 
 }

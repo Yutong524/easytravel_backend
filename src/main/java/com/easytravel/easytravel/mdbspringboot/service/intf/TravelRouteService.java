@@ -13,4 +13,5 @@ public interface TravelRouteService {
     String insertTravelRoute(TravelRoute route);
     Integer getCountTravelRoute();
     List<TravelRoute> findAllTravelRoute(Integer customerId);
+    List<TravelRoute> getAllRoutes();
 }

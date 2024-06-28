@@ -34,4 +34,9 @@ public class RouteManagementController {
     public List<TravelRoute> getRoutes(@PathVariable("planId") int planId) {
         return routeService.findRouteByPlanId(planId);
     }
+
+    @GetMapping("/routes/{customerId}")
+    public List<TravelRoute> getRoutesByCustomer(@PathVariable("customerId") int customerId) {
+        return routeService.findAllTravelRoute(customerId);
+    }
 }

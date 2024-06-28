@@ -35,4 +35,9 @@ public class FavoritePOIController {
 
         return pois;
     }
+
+    @GetMapping("/{poiId}")
+    public POI getPOI(@PathVariable Integer poiId) {
+        return poiService.getPOIByID(poiId);
+    }
 }

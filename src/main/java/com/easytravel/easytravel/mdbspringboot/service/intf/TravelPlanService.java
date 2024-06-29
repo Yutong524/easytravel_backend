@@ -11,4 +11,5 @@ public interface TravelPlanService {
     Integer getCountTravelPlan();
     ResponseEntity<TravelPlan> insertTravelPlan(TravelPlan travelPlan);
     TravelPlan getNameofTravelPlan(int id);
+    List<TravelPlan> getAllTravelPlan();
 }

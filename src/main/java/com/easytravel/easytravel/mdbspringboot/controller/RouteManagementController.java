@@ -15,8 +15,10 @@ public class RouteManagementController {
     @Autowired
     private TravelRouteService routeService;
 
-    @PatchMapping("/routes/{routeId}")
-    public String changeRoutePriority(@PathVariable("routeId") int routeId, @RequestBody String priority) {
+    @PatchMapping("/routes/{routeId}/{oldRouteId}")
+    public String changeRoutePriority(@PathVariable("routeId") int routeId,
+                                      @PathVariable("oidRouteId") int oldRouteId,
+                                      @RequestBody String priority) {
         return routeService.changePriorityByRouteId(routeId, priority);
     }
 

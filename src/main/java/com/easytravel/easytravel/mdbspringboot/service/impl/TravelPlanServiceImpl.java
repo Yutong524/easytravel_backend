@@ -53,4 +53,14 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     public List<TravelPlan> getAllTravelPlan() {
         return planRepository.findAll();
     }
+
+    @Override
+    public TravelPlan getTravelPlanById(int planId) {
+        return planRepository.getTravelPlanByPlanId(planId);
+    }
+
+    @Override
+    public TravelPlan saveTravelPlan(TravelPlan plan) {
+        return planRepository.save(plan);
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/travelRoutes")
@@ -17,9 +18,17 @@ public class RouteManagementController {
 
     @PatchMapping("/routes/{routeId}/{oldRouteId}")
     public String changeRoutePriority(@PathVariable("routeId") int routeId,
-                                      @PathVariable("oidRouteId") int oldRouteId,
-                                      @RequestBody String priority) {
-        return routeService.changePriorityByRouteId(routeId, priority);
+                                      @PathVariable("oldRouteId") int oldRouteId,
+                                      @RequestBody Map<String, String> priorityMap) {
+       String result = routeService.changePriorityByRouteId(routeId, priorityMap.get("newPriority"));
+       routeService.changePriorityByRouteId(oldRouteId, "none");
+       return result;
+    }
+
+    @PatchMapping("/routes/{routeId}")
+    public String changeRoutePriority(@PathVariable("routeId") int routeId,
+                                      @RequestBody Map<String, String> priorityMap) {
+        return routeService.changePriorityByRouteId(routeId, priorityMap.get("newPriority"));
     }
 
     @PatchMapping("/routes/{routeId}/visibility")

@@ -12,4 +12,6 @@ public interface TravelPlanService {
     ResponseEntity<TravelPlan> insertTravelPlan(TravelPlan travelPlan);
     TravelPlan getNameofTravelPlan(int id);
     List<TravelPlan> getAllTravelPlan();
+    TravelPlan getTravelPlanById(int planId);
+    public TravelPlan saveTravelPlan(TravelPlan plan);
 }

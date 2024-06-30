@@ -3,6 +3,8 @@ package com.easytravel.easytravel.mdbspringboot.controller;
 import com.easytravel.easytravel.mdbspringboot.model.TravelRoute;
 import com.easytravel.easytravel.mdbspringboot.service.intf.TravelRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +19,17 @@ public class RouteManagementController {
     private TravelRouteService routeService;
 
     @PatchMapping("/routes/{routeId}/{oldRouteId}")
-    public String changeRoutePriority(@PathVariable("routeId") int routeId,
-                                      @PathVariable("oldRouteId") int oldRouteId,
-                                      @RequestBody Map<String, String> priorityMap) {
-       String result = routeService.changePriorityByRouteId(routeId, priorityMap.get("newPriority"));
-       routeService.changePriorityByRouteId(oldRouteId, "none");
-       return result;
+    public ResponseEntity<String> changeRoutePriority(@PathVariable("routeId") int routeId,
+                                                      @PathVariable("oldRouteId") int oldRouteId,
+                                                      @RequestBody Map<String, String> priorityMap) {
+        String priority = priorityMap.get("newPriority");
+        try {
+            routeService.changePriorityByRouteId(routeId, priority);
+            routeService.changePriorityByRouteId(oldRouteId, "none");
+            return ResponseEntity.ok("Priority changed successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to change priority");
+        }
     }
 
     @PatchMapping("/routes/{routeId}")

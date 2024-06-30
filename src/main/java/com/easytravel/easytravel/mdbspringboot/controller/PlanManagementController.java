@@ -17,6 +17,7 @@ public class PlanManagementController {
 
     @GetMapping("/{customerId}")
     public List<TravelPlan> getPlan(@PathVariable("customerId") int customerId) {
+        System.out.println(customerId);
         return planService.getTravelPlanByAuthor(customerId);
     }
 

@@ -54,6 +54,10 @@ public class RouteSearchController {
                 continue;
             }
 
+            if (!route.getVisibility()) {
+                continue;
+            }
+
             Set<Integer> routePoiIds = route.getPoiArrangement().stream()
                     .map(POIArrangement::getPoiId)
                     .collect(Collectors.toSet());

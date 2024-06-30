@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/travelRoutes")
@@ -21,7 +22,6 @@ import java.util.Map;
 public class RouteInitiationController {
     @Autowired
     private TravelRouteService routeService;
-    private List<POIArrangement> poiArrangement;
 
     @PostMapping("/outside")
     public String addRouteOutside(@RequestBody Map<String, Object> requestData) {
@@ -51,6 +51,16 @@ public class RouteInitiationController {
         if (requestData.get("selectedPlan") != null) {
             Map<String, Object> selectedPlan = (Map<String, Object>) requestData.get("selectedPlan");
             planId = Integer.parseInt(selectedPlan.get("planId").toString());
+
+            if (Objects.equals(requestData.get("priority").toString(), "first") ||
+                    Objects.equals(requestData.get("priority").toString(), "second")) {
+                List<TravelRoute> existingRoutes = routeService.findRouteByPlanId(planId);
+                for (TravelRoute route : existingRoutes) {
+                    if (route.getPriority().equals(priority)) {
+                        routeService.changePriorityByRouteId(route.getRouteId(), "none");
+                    }
+                }
+            }
         }
         Integer customerId = Integer.parseInt(requestData.get("customerId").toString());
 
@@ -60,7 +70,6 @@ public class RouteInitiationController {
 
     @PostMapping("/inside")
     public String addRouteInside(@RequestBody Map<String, Object> requestData) {
-        System.out.println(requestData.get("plan"));
         Integer newId = routeService.getCountTravelRoute() + 1;
         String name = requestData.get("routeName").toString();
         String startDate = requestData.get("startDate").toString();
@@ -84,7 +93,18 @@ public class RouteInitiationController {
         String priority = requestData.get("priority").toString();
         Map<String, Object> selectedPlan = (Map<String, Object>) requestData.get("plan");
         Integer planId = Integer.parseInt(selectedPlan.get("planId").toString());
-        Integer customerId = Integer.parseInt(selectedPlan.get("customerId").toString());
+
+        if (Objects.equals(requestData.get("priority").toString(), "first") ||
+                Objects.equals(requestData.get("priority").toString(), "second")) {
+            List<TravelRoute> existingRoutes = routeService.findRouteByPlanId(planId);
+            for (TravelRoute route : existingRoutes) {
+                if (route.getPriority().equals(priority)) {
+                    routeService.changePriorityByRouteId(route.getRouteId(), "none");
+                }
+            }
+        }
+
+        Integer customerId = Integer.parseInt(requestData.get("customerId").toString());
 
         TravelRoute newRoute = new TravelRoute(null, newId, name, startDate, endDate, arrangements, priority, planId, customerId, false);
         return routeService.insertTravelRoute(newRoute);

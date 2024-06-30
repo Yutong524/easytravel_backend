@@ -1,6 +1,8 @@
 package com.easytravel.easytravel.mdbspringboot.service.impl;
 
+import com.easytravel.easytravel.mdbspringboot.model.Customer;
 import com.easytravel.easytravel.mdbspringboot.model.POI;
+import com.easytravel.easytravel.mdbspringboot.repository.CustomerRepository;
 import com.easytravel.easytravel.mdbspringboot.repository.POIRepository;
 import com.easytravel.easytravel.mdbspringboot.service.intf.POIService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import java.util.List;
 public class POIServiceImpl implements POIService {
     @Autowired
     private POIRepository poiRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public List<POI> getPOIsByKeyword(String keyword) {
@@ -63,5 +67,19 @@ public class POIServiceImpl implements POIService {
     @Override
     public List<POI> getPOIs() {
         return poiRepository.findAll();
+    }
+
+    public String toggleFavoritePOI(Integer customerId, Integer poiId) {
+        Customer customer = customerRepository.getCustomerById(customerId);
+        List<Integer> poiIds = customer.getFavorite_poi();
+
+        if (poiIds.contains(poiId)) {
+            poiIds.remove(poiId);
+        } else {
+            poiIds.add(poiId);
+        }
+        customer.setFavorite_poi(poiIds);
+        customerRepository.save(customer);
+        return "success";
     }
 }

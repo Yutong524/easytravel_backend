@@ -9,6 +9,7 @@ public interface POIService {
     List<POI> getPOIsByAddress(String address);
     void removeFavoritePOI(String id);
     POI getPOIByID(Integer id);
+    public String toggleFavoritePOI(Integer customerId, Integer poiId);
 
     // added by Danny
     List<Comment> getPOICommentsByPoiId(Integer poiId);

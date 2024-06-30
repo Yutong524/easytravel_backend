@@ -45,9 +45,8 @@ public class LogInController {
 
 
     @PostMapping("/")
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED)
     public Customer createCustomer(@Valid @RequestBody RegisterBody body, BindingResult bindingResult) {
-        logger.info(" createCustomer method called");
         if (bindingResult.hasErrors()) {
             String errorMessages = bindingResult.getAllErrors().stream()
                     .map(error -> error.getDefaultMessage())

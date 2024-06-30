@@ -39,10 +39,8 @@ public class RouteInitiationController {
                     parse(schedule.get("startTime").toString(), DateTimeFormatter.ofPattern("HH:mm:ss"));
             LocalTime endTime = LocalTime.
                     parse(schedule.get("endTime").toString(), DateTimeFormatter.ofPattern("HH:mm:ss"));
-            String formattedStartTime = startTime.format(DateTimeFormatter.ofPattern("HH-mm-ss"));
-            String formattedEndTime = endTime.format(DateTimeFormatter.ofPattern("HH-mm-ss"));
-            String start = localDate + " " + formattedStartTime;
-            String end = localDate + " " + formattedEndTime;
+            String start = localDate + " " + startTime;
+            String end = localDate + " " + endTime;
             POIArrangement arrangement =
                     new POIArrangement(Integer.parseInt(schedule.get("poiId").toString()), start, end);
             arrangements.add(arrangement);
@@ -76,10 +74,8 @@ public class RouteInitiationController {
                     parse(schedule.get("startTime").toString(), DateTimeFormatter.ofPattern("HH:mm:ss"));
             LocalTime endTime = LocalTime.
                     parse(schedule.get("endTime").toString(), DateTimeFormatter.ofPattern("HH:mm:ss"));
-            String formattedStartTime = startTime.format(DateTimeFormatter.ofPattern("HH-mm-ss"));
-            String formattedEndTime = endTime.format(DateTimeFormatter.ofPattern("HH-mm-ss"));
-            String start = localDate + " " + formattedStartTime;
-            String end = localDate + " " + formattedEndTime;
+            String start = localDate + " " + startTime;
+            String end = localDate + " " + endTime;
             POIArrangement arrangement =
                     new POIArrangement(Integer.parseInt(schedule.get("poiId").toString()), start, end);
             arrangements.add(arrangement);

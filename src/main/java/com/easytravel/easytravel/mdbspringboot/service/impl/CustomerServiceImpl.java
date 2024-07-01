@@ -66,6 +66,11 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
+    @Override
+    public Customer getCustomer(Integer customerId) {
+        return customerRepository.getCustomerById(customerId);
+    }
+
 
     public boolean isUsernameTaken(String username) {
         return customerRepository.findByUsername(username).size() > 0;

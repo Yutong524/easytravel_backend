@@ -60,5 +60,11 @@ public class LogInController {
 
         return customerService.createCustomer(body.username(), body.password());
     }
+
+    @GetMapping("/name/{customerId}")
+    public String getCustomerName(@PathVariable("customerId") Integer customerId) {
+        Customer customer = customerService.getCustomer(customerId);
+        return customer.getUsername();
+    }
 }
 

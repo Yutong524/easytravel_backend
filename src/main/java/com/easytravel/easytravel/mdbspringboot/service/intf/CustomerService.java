@@ -15,4 +15,5 @@ public interface CustomerService {
     public List<Integer> getCustomerFavoritePOIList(Integer id);
     public List<Integer> getFavoriteRoute(Integer customerId);
     public void modifyFavoriteRoute(Integer customerId, List<Integer> routes);
+    Customer getCustomer(Integer customerId);
 }

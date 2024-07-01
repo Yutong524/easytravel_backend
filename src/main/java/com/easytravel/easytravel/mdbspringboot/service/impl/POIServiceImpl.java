@@ -11,6 +11,7 @@ import com.easytravel.easytravel.mdbspringboot.model.POI.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class POIServiceImpl implements POIService {
@@ -44,29 +45,34 @@ public class POIServiceImpl implements POIService {
         //return poiRepository.getPOICommentsByPoiId(poiId);
         return new ArrayList<Comment>();
     }
+
     //added by Danny
     @Override
-    public void insertPOICommentByPoiId(Integer poiId, Comment comment) {
-        //poiRepository.insertPOICommentByPoiId(poiId, comment);
-    }
-    //added by Danny
-    @Override
-    public Double getPOIAverageRating(Integer poiId) {
-        //List<Comment> comments = poiRepository.getPOICommentsByPoiId(poiId);
-        //if (comments.isEmpty()) {
-        //    return 0.0;
-        //}
-       // Double sum = 0.0;
-        //for (Comment comment : comments) {
-        //    sum += comment.getRating();
-        //}
-        //return sum / comments.size();
-        return 0.0;
+    public Double insertPOICommentByPoiId(Integer poiId, Map<String, Object> comment) {
+        POI poi = poiRepository.getPOIByPoiId(poiId);
+        List<Object> comments = poi.getComments();
+        Integer oldCommentCount = comments.size();
+        Double oldRating = poi.getRating();
+        comments.add(comment);
+        poi.setComments(comments);
+
+        //deal with rating
+        double commentRating = ((Number) comment.get("rating")).doubleValue();
+        Double newRating = (oldRating * oldCommentCount + commentRating) / (oldCommentCount + 1);
+        poi.setRating(newRating);
+        poiRepository.save(poi);
+
+        return newRating;
     }
 
     @Override
     public List<POI> getPOIs() {
         return poiRepository.findAll();
+    }
+
+    @Override
+    public POI getPOIByPOIName(String poiName) {
+        return poiRepository.getPOIByName(poiName);
     }
 
     public String toggleFavoritePOI(Integer customerId, Integer poiId) {

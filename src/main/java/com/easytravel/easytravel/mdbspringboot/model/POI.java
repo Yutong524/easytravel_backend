@@ -35,7 +35,7 @@ public class POI {
     private Double rating;
 
     @Field("comments")
-    private List<Comment> comments;
+    private List<Object> comments;
 
     @Data
     public static class OpenTime {

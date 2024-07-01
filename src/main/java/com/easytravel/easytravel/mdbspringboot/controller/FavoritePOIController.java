@@ -45,6 +45,13 @@ public class FavoritePOIController {
 
     @PatchMapping("/favorite/{customerId}/{poiId}")
     public String toggleFavoritePOI(@PathVariable Integer customerId, @PathVariable Integer poiId) {
+        System.out.println("customer is trying to add favorite " + customerId);
+        System.out.println("poi is trying to add favorite " + poiId);
         return poiService.toggleFavoritePOI(customerId, poiId);
+    }
+
+    @GetMapping("/name/{name}")
+    public POI getPOIByName(@PathVariable String name) {
+        return poiService.getPOIByPOIName(name);
     }
 }

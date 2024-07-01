@@ -27,7 +27,9 @@ public class FavoritePOIController {
         List<POI> pois = new ArrayList<>();
 
         for (Integer id : ids) {
-            pois.add(poiService.getPOIByID(id));
+            POI poi = poiService.getPOIByID(id);
+            System.out.println(poi);
+            pois.add(poi);
         }
 
         return pois;

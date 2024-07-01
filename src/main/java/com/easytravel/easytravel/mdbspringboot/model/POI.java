@@ -1,5 +1,7 @@
 package com.easytravel.easytravel.mdbspringboot.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -7,6 +9,17 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = HistoryPOI.class, name = "history"),
+        @JsonSubTypes.Type(value = LandscapePOI.class, name = "recreation"),
+        @JsonSubTypes.Type(value = RecreationPOI.class, name = "recreation"),
+        @JsonSubTypes.Type(value = ShoppingPOI.class, name = "shopping")
+})
 @Data
 @Document(collection = "pois")
 public class POI {

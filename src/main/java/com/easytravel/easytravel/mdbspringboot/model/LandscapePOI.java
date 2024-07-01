@@ -1,12 +1,14 @@
 package com.easytravel.easytravel.mdbspringboot.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Document(collection = "pois")
 public class LandscapePOI extends POI{
 
     @Field("features")
@@ -16,5 +18,5 @@ public class LandscapePOI extends POI{
     private String conservation;
 
     @Field("fee")
-    private Number fee;
+    private String fee;
 }

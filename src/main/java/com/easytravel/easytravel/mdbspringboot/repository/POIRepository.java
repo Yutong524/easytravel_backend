@@ -12,4 +12,5 @@ public interface POIRepository extends MongoRepository<POI, String> {
     POI getPOIByPoiId(Integer poiId);
     List<Object> getCommentsByPoiId(Integer poiId);
     POI getPOIByName(String poiName);
+    POI findByPoiId(Integer poiId);
 }
